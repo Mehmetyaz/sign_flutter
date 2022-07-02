@@ -32,7 +32,7 @@ class SlotWidget<V> extends StatefulWidget {
 }
 
 ///
-class SlotState<T> extends State<SlotWidget> implements Slot<T> {
+class SlotState<T> extends State<SlotWidget<T>> implements Slot<T> {
   @mustCallSuper
   @override
   void initState() {

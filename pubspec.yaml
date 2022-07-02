@@ -1,6 +1,6 @@
 name: sign_flutter
 description: Sign basic state management for Flutter.
-version: 0.0.1
+version: 0.0.1+2
 homepage: https://github.com/Mehmetyaz/sign_flutter
 repository: https://github.com/Mehmetyaz/sign_flutter
 
@@ -8,7 +8,7 @@ environment:
   sdk: '>=2.17.0 <3.0.0'
 
 dependencies:
-  sign: 0.0.1
+  sign: 0.0.2
   flutter:
     sdk: flutter
 
