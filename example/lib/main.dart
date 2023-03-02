@@ -28,21 +28,23 @@ class _CollectionChangesSignState extends State<CollectionChangesSign> {
   late final MultiSignal allNotifier = list.multiSignal;
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: allNotifier.builder(
-              (value) => Text('SUM: $sum', key: const Key('sum_sign'))),
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: allNotifier
+            .builder((value) => Text('SUM: $sum', key: const Key('sum_sign'))),
+      ),
+      body: ListView.separated(
+        itemCount: list.length,
+        cacheExtent: 2000,
+        itemBuilder: (c, i) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 30),
+          child: CounterWidgetSign(counter: list[i], index: i),
         ),
-        body: ListView.separated(
-          itemCount: list.length,
-          cacheExtent: 2000,
-          itemBuilder: (c, i) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            child: CounterWidgetSign(counter: list[i], index: i),
-          ),
-          separatorBuilder: (context, index) => const Divider(),
-        ),
-      );
+        separatorBuilder: (context, index) => const Divider(),
+      ),
+    );
+  }
 
   ///
   int get sum {

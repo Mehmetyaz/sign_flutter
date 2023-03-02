@@ -5,3 +5,9 @@ export 'src/global_slot_widget.dart';
 export 'src/slot_widget.dart';
 export 'src/slot_extension.dart';
 export 'package:sign/sign.dart';
+export 'src/listenable_extension.dart'
+    show
+        ValueNotifierConverter,
+        ChangeNotifierConverter,
+        ChangeNotifierSignal,
+        ValueNotifierSignal;
