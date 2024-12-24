@@ -3,12 +3,13 @@ description: Sign basic state management for Flutter.
 version: 0.0.4
 homepage: https://github.com/Mehmetyaz/sign_flutter
 repository: https://github.com/Mehmetyaz/sign_flutter
-
+publish_to: none
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: ^3.7.0-267.0.dev
 
 dependencies:
-  sign: ^0.0.3
+  sign:
+    path: ../sign
   flutter:
     sdk: flutter
 
@@ -16,5 +17,3 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.1
-
-flutter:
