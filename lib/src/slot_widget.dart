@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:sign/sign.dart';
 
 /// Listen changes and rebuilt if necessary
-class SlotWidget<V> extends StatefulWidget {
+class SlotBuilder<V> extends StatefulWidget {
   /// Listen changes and rebuilt if necessary
-  const SlotWidget(
-      {Key? key,
-      required this.signal,
-      required this.builder,
-      this.notifyOnDebug = true,
-      this.onDispose})
-      : super(key: key);
+  const SlotBuilder({
+    Key? key,
+    required this.signal,
+    required this.builder,
+    this.notifyOnDebug = true,
+    this.onDispose,
+  }) : super(key: key);
 
   ///
   final Signal<V> signal;
@@ -28,11 +28,11 @@ class SlotWidget<V> extends StatefulWidget {
   final Widget Function(V value) builder;
 
   @override
-  SlotState<V> createState() => SlotState();
+  SlotBuilderState<V> createState() => SlotBuilderState();
 }
 
 ///
-class SlotState<T> extends State<SlotWidget<T>> implements Slot<T> {
+class SlotBuilderState<T> extends State<SlotBuilder<T>> implements Slot<T> {
   @mustCallSuper
   @override
   void initState() {
@@ -49,7 +49,7 @@ class SlotState<T> extends State<SlotWidget<T>> implements Slot<T> {
   }
 
   @override
-  void didUpdateWidget(covariant SlotWidget<T> oldWidget) {
+  void didUpdateWidget(covariant SlotBuilder<T> oldWidget) {
     _remove();
     _listen();
     super.didUpdateWidget(oldWidget);

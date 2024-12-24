@@ -7,16 +7,19 @@ void main() {
     var counter = 0.signal;
 
     var buildCount = 0;
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: SlotWidget(
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SlotBuilder(
             signal: counter,
             builder: (v) {
               buildCount++;
               return Text(v.toString());
-            }),
+            },
+          ),
+        ),
       ),
-    ));
+    );
 
     /// first build
     expect(buildCount, 1);
@@ -48,16 +51,19 @@ void main() {
     var counter1 = 0.signal;
     var counter2 = 0.signal;
     var buildCount = 0;
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: SlotWidget(
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SlotBuilder(
             signal: [counter1, counter2].multiSignal,
             builder: (v) {
               buildCount++;
               return Text((counter1.value + counter2.value).toString());
-            }),
+            },
+          ),
+        ),
       ),
-    ));
+    );
 
     /// first build
     expect(buildCount, 1);
@@ -96,16 +102,19 @@ void main() {
   testWidgets('Works collections (list) 2. Way', (tester) async {
     var signalList = <int>[0, 0].signalList;
     var buildCount = 0;
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: SlotWidget<List<int>>(
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: SlotBuilder<List<int>>(
             signal: signalList,
             builder: (v) {
               buildCount++;
               return Text((sum(v)).toString());
-            }),
+            },
+          ),
+        ),
       ),
-    ));
+    );
 
     /// first build
     expect(buildCount, 1);

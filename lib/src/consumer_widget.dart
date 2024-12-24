@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sign/sign.dart';
-import 'package:sign_flutter/src/slot_widget.dart';
+import 'package:sign_flutter/sign_flutter.dart';
 
 ///
 abstract class ConsumerWidget<V> extends StatefulWidget {
@@ -19,6 +18,8 @@ abstract class ConsumerWidget<V> extends StatefulWidget {
 
 class _ConsumerState<V> extends State<ConsumerWidget<V>> {
   @override
-  Widget build(BuildContext context) => SlotWidget<V>(
-      signal: widget.signal, builder: (v) => widget.build(context, v));
+  Widget build(BuildContext context) => SlotBuilder<V>(
+    signal: widget.signal,
+    builder: (v) => widget.build(context, v),
+  );
 }
