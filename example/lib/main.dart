@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import 'package:sign_flutter/sign_flutter.dart';
 
@@ -36,7 +37,7 @@ class _CollectionChangesSignState extends State<CollectionChangesSign> {
       ),
       body: ListView.separated(
         itemCount: list.length,
-        cacheExtent: 2000,
+        scrollCacheExtent: const ScrollCacheExtent.viewport(2),
         itemBuilder: (c, i) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 30),
           child: CounterWidgetSign(counter: list[i], index: i),

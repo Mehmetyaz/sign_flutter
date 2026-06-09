@@ -25,16 +25,31 @@ extension NotifierExtension<T> on Signal<T> {
 
 abstract class SlotState<T extends StatefulWidget> extends State<T>
     implements Slot<void> {
-  final List<Signal> _definedSignals = [];
+  final Set<Signal> _definedSignals = {};
 
   bool _isDisposed = false;
   bool _isInitialized = false;
 
-  Signal<S> defineSignal<S>(Signal<S> signal) {
+  S defineSignal<S extends Signal>(S signal) {
     if (_isDisposed) throw Exception('Slot is disposed.');
-    if (_isInitialized) throw Exception('Slot is already initialized.');
-    _definedSignals.add(signal);
+    if (_definedSignals.add(signal) && _isInitialized) {
+      signal.addSlot(this);
+    }
     return signal;
+  }
+
+  @override
+  void onValue(void value) {
+    if (!_isInitialized || _isDisposed || !mounted) return;
+    setState(() {});
+  }
+
+  ComputedSignal<S> computed<S>(Iterable<Signal> signals, S Function() fn) {
+    final deps = signals.toList();
+    if (deps.isEmpty) {
+      throw ArgumentError.value(signals, 'signals', 'must not be empty');
+    }
+    return defineSignal(deps.first.computed(fn, also: deps.skip(1)));
   }
 
   @override
@@ -50,6 +65,7 @@ abstract class SlotState<T extends StatefulWidget> extends State<T>
   void dispose() {
     for (var signal in _definedSignals) {
       signal.removeSlot(this);
+      if (signal is ComputedSignal) signal.dispose();
     }
     super.dispose();
     _isDisposed = true;
