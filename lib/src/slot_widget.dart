@@ -69,11 +69,20 @@ class SlotBuilderState<T> extends State<SlotBuilder<T>> implements Slot<T> {
     _listen();
   }
 
+  bool _firstBuild = false;
+
   @override
-  Widget build(BuildContext context) => widget.builder(widget.signal.value);
+  Widget build(BuildContext context) {
+    if (!_firstBuild) {
+      _firstBuild = true;
+      return widget.builder(widget.signal.value);
+    }
+    return widget.builder(widget.signal.value);
+  }
 
   @override
   void onValue(T value) {
+    if (!_firstBuild) return;
     if (mounted) setState(() {});
   }
 }
