@@ -1,6 +1,7 @@
 library yaz_state;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sign/sign.dart';
 
 /// Listen changes and rebuilt if necessary
@@ -82,7 +83,8 @@ class SlotBuilderState<T> extends State<SlotBuilder<T>> implements Slot<T> {
 
   @override
   void onValue(T value) {
-    if (!_firstBuild) return;
-    if (mounted) setState(() {});
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      if (mounted) setState(() {});
+    });
   }
 }
