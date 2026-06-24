@@ -45,14 +45,22 @@ class SlotBuilderState<T> extends State<SlotBuilder<T>> implements Slot<T> {
   @override
   void dispose() {
     _remove();
+    if (widget.signal is MultiSignal) {
+      (widget.signal as MultiSignal).dispose();
+    }
     widget.onDispose?.call();
     super.dispose();
   }
 
   @override
   void didUpdateWidget(covariant SlotBuilder<T> oldWidget) {
-    _remove();
-    _listen();
+    if (oldWidget.signal != widget.signal) {
+      oldWidget.signal.removeSlot(this);
+      if (oldWidget.signal is MultiSignal) {
+        (oldWidget.signal as MultiSignal).dispose();
+      }
+      _listen();
+    }
     super.didUpdateWidget(oldWidget);
   }
 
