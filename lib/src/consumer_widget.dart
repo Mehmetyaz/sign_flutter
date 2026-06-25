@@ -4,7 +4,7 @@ import 'package:sign_flutter/sign_flutter.dart';
 ///
 abstract class ConsumerWidget<V> extends StatefulWidget {
   ///
-  const ConsumerWidget({required this.signal, Key? key}) : super(key: key);
+  const ConsumerWidget({required this.signal, super.key});
 
   ///
   final Signal<V> signal;

@@ -4,16 +4,13 @@ import 'package:flutter/rendering.dart';
 import 'package:sign_flutter/sign_flutter.dart';
 
 void main() {
-  runApp(const MaterialApp(
-    home: CollectionChangesSign(count: 4),
-  ));
+  runApp(const MaterialApp(home: CollectionChangesSign(count: 4)));
 }
 
 ///
 class CollectionChangesSign extends StatefulWidget {
   ///
-  const CollectionChangesSign({Key? key, required this.count})
-      : super(key: key);
+  const CollectionChangesSign({super.key, required this.count});
 
   final int count;
 
@@ -23,8 +20,10 @@ class CollectionChangesSign extends StatefulWidget {
 
 class _CollectionChangesSignState extends State<CollectionChangesSign> {
   ///
-  late final List<Signal<int>> list =
-      List.generate(widget.count, (index) => 0).signals;
+  late final List<Signal<int>> list = List.generate(
+    widget.count,
+    (index) => 0,
+  ).signals;
 
   late final MultiSignal allNotifier = list.multiSignal;
 
@@ -32,8 +31,9 @@ class _CollectionChangesSignState extends State<CollectionChangesSign> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: allNotifier
-            .builder((value) => Text('SUM: $sum', key: const Key('sum_sign'))),
+        title: allNotifier.builder(
+          (value) => Text('SUM: $sum', key: const Key('sum_sign')),
+        ),
       ),
       body: ListView.separated(
         itemCount: list.length,
@@ -60,9 +60,11 @@ class _CollectionChangesSignState extends State<CollectionChangesSign> {
 ///
 class CounterWidgetSign extends StatelessWidget {
   ///
-  const CounterWidgetSign(
-      {Key? key, required this.counter, required this.index})
-      : super(key: key);
+  const CounterWidgetSign({
+    super.key,
+    required this.counter,
+    required this.index,
+  });
 
   ///
   final Signal<int> counter;
@@ -72,38 +74,40 @@ class CounterWidgetSign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-        children: [
-          Container(
-            width: 200,
-            alignment: Alignment.center,
-            margin: const EdgeInsets.symmetric(horizontal: 0),
-            child: Text(
-              'Index Of $index',
+    children: [
+      Container(
+        width: 200,
+        alignment: Alignment.center,
+        margin: const EdgeInsets.symmetric(horizontal: 0),
+        child: Text('Index Of $index'),
+      ),
+      Expanded(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              key: Key('increment_sign_$index'),
+              onTap: () {
+                counter.value++;
+              },
+              child: const Text('Counter Increment'),
             ),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                    key: Key('increment_sign_$index'),
-                    onTap: () {
-                      counter.value++;
-                    },
-                    child: const Text('Counter Increment')),
-                counter.builder((value) => Text(
-                      'value_sign_${index}_$value',
-                      key: Key('value_sign_$index'),
-                    )),
-                GestureDetector(
-                    key: Key('decrement_sign_$index'),
-                    onTap: () {
-                      counter.value--;
-                    },
-                    child: const Text('Counter Decrement'))
-              ],
+            counter.builder(
+              (value) => Text(
+                'value_sign_${index}_$value',
+                key: Key('value_sign_$index'),
+              ),
             ),
-          ),
-        ],
-      );
+            GestureDetector(
+              key: Key('decrement_sign_$index'),
+              onTap: () {
+                counter.value--;
+              },
+              child: const Text('Counter Decrement'),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }

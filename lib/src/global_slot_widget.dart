@@ -4,13 +4,13 @@ import 'package:sign/sign.dart';
 /// Listen changes and rebuilt if necessary
 class GlobalSlotWidget<V, T extends GlobalSignal<V>> extends StatefulWidget {
   /// Listen changes and rebuilt if necessary
-  const GlobalSlotWidget(
-      {Key? key,
-      required this.signal,
-      required this.builder,
-      this.notifyOnDebug = true,
-      this.onDispose})
-      : super(key: key);
+  const GlobalSlotWidget({
+    super.key,
+    required this.signal,
+    required this.builder,
+    this.notifyOnDebug = true,
+    this.onDispose,
+  });
 
   ///
   final T signal;
@@ -31,7 +31,8 @@ class GlobalSlotWidget<V, T extends GlobalSignal<V>> extends StatefulWidget {
 
 ///
 class GlobalSlotState<V, T extends GlobalSignal<V>>
-    extends State<GlobalSlotWidget<V, T>> implements GlobalSlot<V, T> {
+    extends State<GlobalSlotWidget<V, T>>
+    implements GlobalSlot<V, T> {
   @mustCallSuper
   @override
   void initState() {

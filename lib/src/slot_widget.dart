@@ -1,5 +1,3 @@
-library yaz_state;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:sign/sign.dart';
@@ -8,12 +6,12 @@ import 'package:sign/sign.dart';
 class SlotBuilder<V> extends StatefulWidget {
   /// Listen changes and rebuilt if necessary
   const SlotBuilder({
-    Key? key,
+    super.key,
     required this.signal,
     required this.builder,
     this.notifyOnDebug = true,
     this.onDispose,
-  }) : super(key: key);
+  });
 
   ///
   final Signal<V> signal;

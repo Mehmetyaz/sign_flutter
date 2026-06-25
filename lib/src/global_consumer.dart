@@ -6,8 +6,7 @@ import 'package:sign_flutter/src/global_slot_widget.dart';
 abstract class GlobalConsumerWidget<V, T extends GlobalSignal<V>>
     extends StatefulWidget {
   ///
-  const GlobalConsumerWidget({required this.signal, Key? key})
-      : super(key: key);
+  const GlobalConsumerWidget({required this.signal, super.key});
 
   ///
   final T signal;
@@ -23,5 +22,7 @@ class GlobalConsumerState<V, T extends GlobalSignal<V>>
     extends State<GlobalConsumerWidget<V, T>> {
   @override
   Widget build(BuildContext context) => GlobalSlotWidget<V, T>(
-      signal: widget.signal, builder: (v) => widget.build(context, v));
+    signal: widget.signal,
+    builder: (v) => widget.build(context, v),
+  );
 }
