@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sign/sign.dart';
 
 /// Listen changes and rebuilt if necessary
@@ -74,6 +75,13 @@ class GlobalSlotState<V, T extends GlobalSignal<V>>
 
   @override
   void onValue(V value) {
-    if (mounted) setState(() {});
+    if (!mounted) return;
+    if (SchedulerBinding.instance.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (mounted) setState(() {});
+      });
+    } else {
+      setState(() {});
+    }
   }
 }

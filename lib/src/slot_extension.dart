@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:sign_flutter/sign_flutter.dart';
 import 'package:sign_flutter/src/slot_widget.dart' as sl;
 
@@ -41,7 +42,13 @@ abstract class SlotState<T extends StatefulWidget> extends State<T>
   @override
   void onValue(void value) {
     if (!_isInitialized || _isDisposed || !mounted) return;
-    setState(() {});
+    if (SchedulerBinding.instance.schedulerPhase == SchedulerPhase.persistentCallbacks) {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        if (!_isDisposed && mounted) setState(() {});
+      });
+    } else {
+      setState(() {});
+    }
   }
 
   ComputedSignal<S> computed<S>(Iterable<Signal> signals, S Function() fn) {
