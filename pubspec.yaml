@@ -5,7 +5,7 @@ homepage: https://github.com/Mehmetyaz/sign_flutter
 repository: https://github.com/Mehmetyaz/sign_flutter
 publish_to: none
 environment:
-  sdk: ^3.14.0-41.0.dev
+  sdk: ^3.12.2
 
 dependencies:
   sign:
