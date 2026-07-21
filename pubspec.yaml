@@ -1,4 +1,5 @@
 name: sign_flutter
+resolution: workspace
 description: Sign basic state management for Flutter.
 version: 0.0.4
 homepage: https://github.com/Mehmetyaz/sign_flutter
